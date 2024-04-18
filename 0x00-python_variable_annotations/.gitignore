@@ -1,0 +1,3 @@
+*.backup
+main.py
+__pycache__
