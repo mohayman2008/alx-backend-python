@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 '''This script contains the definition for the function "to_str"'''
-import math
 
 
 def to_str(n: float) -> str:
