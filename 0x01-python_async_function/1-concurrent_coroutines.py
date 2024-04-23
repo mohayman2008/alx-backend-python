@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 '''This script contains the definition for the function "wait_n"'''
+import asyncio
 from asyncio import as_completed
 
 wait_random = __import__("0-basic_async_syntax").wait_random
