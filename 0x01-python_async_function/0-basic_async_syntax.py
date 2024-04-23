@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 '''This script contains the definition for the function "wait_random"'''
+import asyncio
 from asyncio import sleep
 from random import uniform
 
