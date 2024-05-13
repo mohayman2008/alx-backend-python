@@ -3,11 +3,11 @@
 from typing import Any, Dict, Tuple, Union
 import unittest
 
-# from parameterized import parameterized  # type: ignore
-parameterized = __import__("parameterized").parameterized
+from parameterized import parameterized  # type: ignore
+# parameterized = __import__("parameterized").parameterized
 
-# from utils import access_nested_map
-access_nested_map = __import__("utils").access_nested_map
+from utils import access_nested_map
+# access_nested_map = __import__("utils").access_nested_map
 
 
 class TestAccessNestedMap(unittest.TestCase):
