@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''This module contains unittest test cases for functions in "utils.py"'''
-from typing import Any, Mapping, Sequence
+from typing import Any, Dict, Tuple
 import unittest
 
 # from parameterized import parameterized  # type: ignore
@@ -18,7 +18,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ("maximum depth", {"a": {"b": 2}}, ("a", "b"), 2)
     ])
     def test_access_nested_map(self, name: str,
-                               nested_map: Mapping, path: Sequence,
+                               nested_map: Dict, path: Tuple,
                                expected: Any) -> None:
         '''Testing "utils.access_nested_map" expected output'''
         self.assertEqual(access_nested_map(nested_map, path), expected)
@@ -28,7 +28,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ("digging deeper than max-depth", {"a": 1}, ("a", "b"), "b")
     ])
     def test_access_nested_map_exception(self, name: str,
-                                         nested_map: Mapping, path: Sequence,
+                                         nested_map: Dict, path: Tuple,
                                          expected_msg) -> None:
         '''Testing that function "utils.access_nested_map" raises the expected
         exception with the right exception messages'''
