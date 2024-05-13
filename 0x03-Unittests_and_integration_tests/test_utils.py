@@ -8,7 +8,6 @@ from parameterized import parameterized  # type: ignore
 from requests import Response
 
 from utils import *
-# patch = unittest.mock.patch
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -53,10 +52,6 @@ class MockResponse():
 class TestGetJson(unittest.TestCase):
     '''TestCase for "utils.get_json"'''
 
-    """
-    test_url="http://example.com", test_payload={"payload": True}
-    test_url="http://holberton.io", test_payload={"payload": False}
-    """
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False})
@@ -67,4 +62,28 @@ class TestGetJson(unittest.TestCase):
         with patch("utils.requests.get",
                    return_value=MockResponse(expected_payload)) as mock:
             self.assertEqual(get_json(url), expected_payload)
+        mock.assert_called_once()
+
+
+class TestMemoize(unittest.TestCase):
+    '''TestCase for "utils.memoize"'''
+
+    def test_memoize(self) -> None:
+        '''Testing that function "utils.memoize" functions as it's supposed to
+        '''
+        class TestClass:
+            '''Test class'''
+            def a_method(self) -> int:
+                '''Dummy method'''
+                return 42
+
+            @memoize
+            def a_property(self) -> int:
+                '''Memoized property'''
+                return self.a_method()
+
+        with patch.object(TestClass, "a_method", return_value=42) as mock:
+            test_obj = TestClass()
+            self.assertEqual(test_obj.a_property, 42)
+            self.assertEqual(test_obj.a_property, 42)
         mock.assert_called_once()
