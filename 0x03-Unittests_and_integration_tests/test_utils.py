@@ -14,21 +14,21 @@ class TestAccessNestedMap(unittest.TestCase):
     '''TestCase for "utils.access_nested_map"'''
 
     @parameterized.expand([
-        ("not maximum depth", {"a": {"b": 2}}, ("a",), {"b": 2}),
-        ("maximum depth", {"a": {"b": 2}}, ("a", "b"), 2)
+        # ("not maximum depth", {"a": {"b": 2}}, ("a",), {"b": 2}),
+        # ("maximum depth", {"a": {"b": 2}}, ("a", "b"), 2)
+        ({"a": {"b": 2}}, ("a",), {"b": 2}),
+        ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
-    def test_access_nested_map(self, name: str,
-                               nested_map: Dict, path: Tuple,
+    def test_access_nested_map(self, nested_map: Dict, path: Tuple,
                                expected: Any) -> None:
         '''Testing "utils.access_nested_map" expected output'''
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
     @parameterized.expand([
-        ("digging in empty dict", {}, ("a",), "a"),
-        ("digging deeper than max-depth", {"a": 1}, ("a", "b"), "b")
+        ({}, ("a",), "a"),
+        ({"a": 1}, ("a", "b"), "b")
     ])
-    def test_access_nested_map_exception(self, name: str,
-                                         nested_map: Dict, path: Tuple,
+    def test_access_nested_map_exception(self, nested_map: Dict, path: Tuple,
                                          expected_msg) -> None:
         '''Testing that function "utils.access_nested_map" raises the expected
         exception with the right exception messages'''
