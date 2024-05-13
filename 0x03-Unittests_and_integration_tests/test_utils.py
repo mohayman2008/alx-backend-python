@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''This module contains unittest test cases for functions in "utils.py"'''
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Tuple, Union
 import unittest
 
 # from parameterized import parameterized  # type: ignore
@@ -14,13 +14,11 @@ class TestAccessNestedMap(unittest.TestCase):
     '''TestCase for "utils.access_nested_map"'''
 
     @parameterized.expand([
-        # ("not maximum depth", {"a": {"b": 2}}, ("a",), {"b": 2}),
-        # ("maximum depth", {"a": {"b": 2}}, ("a", "b"), 2)
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
-    def test_access_nested_map(self, nested_map: Dict, path: Tuple,
-                               expected: Any) -> None:
+    def test_access_nested_map(self, nested_map: Dict, path: Tuple[str],
+                               expected: Union[Dict, int]) -> None:
         '''Testing "utils.access_nested_map" expected output'''
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
