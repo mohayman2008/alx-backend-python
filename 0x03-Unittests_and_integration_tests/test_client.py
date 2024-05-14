@@ -4,7 +4,7 @@ in "client.py"'''
 import json
 from typing import Dict
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, PropertyMock
 
 from parameterized import parameterized  # type: ignore
 
@@ -77,3 +77,19 @@ class TestGithubOrgClient(unittest.TestCase):
 
         url = GithubOrgClient.ORG_URL.format(org=org_name)
         mock_get_json.assert_called_once_with(url)
+
+    @parameterized.expand([
+        ("google", org_google),
+        ("abc", org_abc)
+    ])
+    @patch.object(GithubOrgClient, "org", new_callable=PropertyMock)
+    def test_public_repos_url(self, org_name: str, org_json: Dict,
+                              mock_org: MagicMock) -> None:
+        '''Testing that function "GithubOrgClient._public_repos_url" returns
+        the expected output'''
+        client = GithubOrgClient(org_name)
+        mock_org.return_value = org_json
+        if "repos_url" in org_json:
+            self.assertEqual(client._public_repos_url, org_json["repos_url"])
+        else:
+            self.assertRaises(KeyError)
